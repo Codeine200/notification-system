@@ -1,0 +1,37 @@
+
+server:
+    port: 8080
+
+spring:
+    application:
+        name: template-service
+    datasource:
+        url: jdbc:postgresql://localhost:5432/template_service
+        username: template_service
+        password: secret
+        driver-class-name: org.postgresql.Driver
+
+    jpa:
+        open-in-view: false
+        properties:
+            hibernate:
+                default_schema: templates
+                format_sql: true
+                jdbc:
+                    lob:
+                        non_contextual_creation: true
+                type:
+                    descriptor: trace
+        hibernate:
+            ddl-auto: validate
+        show-sql: true
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+    flyway:
+        schemas: templates
+
+    cache:
+        type: caffeine
+        caffeine:
+            spec: maximumSize=500,expireAfterWrite=10m
+
