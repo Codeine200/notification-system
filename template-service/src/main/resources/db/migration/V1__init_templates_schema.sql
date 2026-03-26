@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS templates.templates (
     title VARCHAR(150) NOT NULL,
     name VARCHAR(100) NOT NULL,
     content TEXT NOT NULL,
-    variables TEXT[],
+    variables jsonb,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -46,8 +46,8 @@ INSERT INTO templates.channels (name, type) VALUES
      ('Phone', 'SMS');
 
 INSERT INTO templates.templates (title, name, content, variables) VALUES
-      ('Приветствие Telegram', 'welcome_telegram', 'Привет, {{username}}!', ARRAY['username']),
-      ('Приветствие SMS', 'welcome_sms', 'Привет, {{username}}! Телефон: {{phone}}', ARRAY['username','phone']);
+      ('Telegram Greeting', 'welcome_telegram', 'Hello, {{username}}!', '["username"]'::jsonb),
+      ('SMS Greeting', 'welcome_sms', 'Hello, {{username}}! Phone: {{phone}}', '["username","phone"]'::jsonb);
 
 INSERT INTO templates.channel_templates (channel_id, template_id) VALUES
       (1, 1),
